@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --animate-blob-a: blob-pulse 5s ease-in-out infinite, blob-hue 14s linear infinite;
+  --animate-blob-b: blob-pulse 6s ease-in-out -1.5s infinite, blob-hue 16s linear -4s infinite;
+  --animate-blob-c: blob-pulse 7s ease-in-out -3s infinite, blob-hue 18s linear -7s infinite;
+}
+
+@keyframes blob-pulse {
+  0%, 100% {
+    scale: 1;
+    opacity: calc(var(--peak) * 0.55);
+  }
+  50% {
+    scale: 1.4;
+    opacity: var(--peak);
+  }
+}
+
+@keyframes blob-hue {
+  from { filter: blur(60px) hue-rotate(0deg); }
+  to { filter: blur(60px) hue-rotate(360deg); }
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+}
+
+body {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.12) 1.2px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob-a,
+  .animate-blob-b,
+  .animate-blob-c {
+    animation: none;
+  }
+}
