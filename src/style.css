@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --animate-blob-a: blob-pulse 5s ease-in-out infinite, blob-hue 14s linear infinite;
   --animate-blob-b: blob-pulse 6s ease-in-out -1.5s infinite, blob-hue 16s linear -4s infinite;
   --animate-blob-c: blob-pulse 7s ease-in-out -3s infinite, blob-hue 18s linear -7s infinite;
