@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living Room Layout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday and practical: a plan two people will push furniture around on
+   IDEA an estate agent floor plan redrawn over Luis's dotted-paper sketch, measurements in red pen
+   PICTURE the to-scale room: dark oak floor, draggable sofa, table, TV and rug, red clearance lines
+   COLOUR wall-grey ground, dark oak floor, oatmeal sofa, red pen accent
+   TYPE Archivo 800 + Archivo
+   LAYOUT laptop: plan left, live figures and controls right, notes below; phone: title, plan, figures, controls */
+:root{color-scheme:light dark;--bg:light-dark(#f1f0ee,#141311);--paper:light-dark(#fff,#221f1c);--ink:light-dark(#1c1a18,#eeeae5);--mute:light-dark(#5e5852,#aba49c);--line:light-dark(#d9d5cf,#3a3631);--dot:light-dark(#cdc8c1,#34302c);--wall:light-dark(#2b2724,#d8d3cc);--pen:light-dark(#d1231a,#ff6656);--amber:light-dark(#9a5500,#f3a84a)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Archivo,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(20px,3vw,36px) max(4vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1{font-weight:800;font-size:clamp(32px,4.4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+header p{margin:0;color:var(--mute);max-width:68ch}
+h2{font-size:18px;font-weight:700;margin:0 0 10px;line-height:1.25}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
+.fig{position:relative;width:100%;aspect-ratio:.86;max-height:calc(100svh - 100px);min-height:340px;background:radial-gradient(circle,var(--dot) 1.1px,transparent 1.6px) 0 0/18px 18px;border-radius:6px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%;user-select:none;-webkit-user-select:none}
+svg text{pointer-events:none}
+.wall{fill:var(--wall)}
+.wt{fill:var(--bg);font:600 13px Archivo,sans-serif;text-anchor:middle;dominant-baseline:central}
+.p0{fill:#6d4935}
+.p1{fill:#603f2d}
+.p2{fill:#76503a}
+.p3{fill:#664430}
+.pj{stroke:#3a261a;stroke-width:1}
+.hearth{fill:#121110}
+.rad{fill:#a4a19c;stroke:#4a4744;stroke-width:1}
+.sock{fill:#f4f2ee;stroke:#4a4744;stroke-width:.8}
+.tvp{fill:var(--pen)}
+.leaf{fill:var(--wall)}
+.swing{fill:none;stroke:#e9dccb;stroke-width:1.2;stroke-dasharray:4 4}
+.route{fill:none;stroke:#f1e6d6;stroke-width:2;stroke-dasharray:1 7;stroke-linecap:round;opacity:.8}
+.ahp{fill:#f1e6d6}
+.lab{fill:var(--mute);font:500 13px Archivo,sans-serif;dominant-baseline:central}
+.dimo{fill:none;stroke:var(--pen);stroke-width:1.2}
+.dim{stroke:var(--pen);stroke-width:2}
+.pill rect{fill:var(--paper);stroke:var(--pen);stroke-width:1}
+.pill text{fill:var(--pen);font:700 13px Archivo,sans-serif;text-anchor:middle;dominant-baseline:central}
+.rug{fill:#8f99a6;opacity:.92}
+.rugb{fill:none;stroke:#c7ced6;stroke-width:1.5}
+.tbl{fill:#1b1917;stroke:#cfc4b4;stroke-width:1.2}
+.unit{fill:#efebe5;stroke:#7c7062;stroke-width:1.2}
+.scr,.tvw{fill:#0f0f10}
+.tvw{stroke:#cfc4b4;stroke-width:1}
+.hit{fill:transparent}
+.bx.wood{fill:#c99f72;stroke:#5a3c22;stroke-width:1.2}
+.bx.white{fill:#efebe5;stroke:#7c7062;stroke-width:1.2}
+.bx.chair{fill:#e8e0d3;stroke:#5e5040;stroke-width:1.4}
+.lamp{fill:#f6e7b4;stroke:#8a7a4a;stroke-width:1.2}
+.adds{display:flex;flex-wrap:wrap;gap:8px}
+.adds button{font:500 15px Archivo,sans-serif;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.adds button:hover{border-color:var(--ink)}
+.adds button::before{content:'+ ';color:var(--pen);font-weight:700}
+.sofa{fill:#e8e0d3;stroke:#e8e0d3;stroke-width:1}
+.sofab{fill:#d5c9b5}
+.seam{stroke:#a8987f;stroke-width:1}
+.sofao{fill:none;stroke:#5e5040;stroke-width:1.6}
+.bed{fill:url(#hatch);stroke:var(--pen);stroke-width:1.5;stroke-dasharray:6 4;pointer-events:none}
+.hl{stroke:var(--pen);stroke-width:1.2;opacity:.7}
+.flab{font:600 13px Archivo,sans-serif;text-anchor:middle;dominant-baseline:central;fill:#3d342a}
+.flab.lt{fill:#efe7da}
+.sel{fill:none;stroke:var(--pen);stroke-width:1.5;stroke-dasharray:5 4;pointer-events:none}
+.it{cursor:grab;touch-action:none}
+.panel{display:grid;gap:22px}
+.figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}
+.figs div{border-top:1px solid var(--line);padding:10px 0 12px}
+.figs .k{display:block;font-size:14px;color:var(--mute)}
+.figs b{display:block;font-size:clamp(26px,3vw,32px);font-weight:800;line-height:1.15;white-space:nowrap;letter-spacing:-.01em}
+.figs .s{display:block;font-size:14px;line-height:1.35}
+.tight{color:var(--amber)}
+.bad{color:var(--pen)}
+.presets{display:grid;gap:8px}
+.presets button{font:inherit;color:inherit;text-align:left;cursor:pointer;padding:10px 14px;border:1px solid var(--line);border-radius:6px;background:var(--paper);min-height:44px}
+.presets button b{display:block;font-weight:700}
+.presets button span{display:block;font-size:14px;color:var(--mute);line-height:1.4}
+.presets button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.presets button:hover{border-color:var(--ink)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--pen);outline-offset:2px}
+.tg{display:flex;flex-wrap:wrap;gap:0 22px}
+.tg label{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:var(--pen)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5em,1fr));gap:10px}
+.ed label{display:block;font-size:14px;color:var(--mute)}
+.in{display:flex;align-items:center;border:1px solid var(--line);border-radius:6px;background:var(--paper);padding:0 10px}
+.in input{font:16px Archivo,sans-serif;width:100%;border:0;background:transparent;color:var(--ink);padding:10px 4px;min-height:44px}
+.in span{color:var(--mute);font-size:14px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btns button{font:600 15px Archivo,sans-serif;min-height:44px;padding:0 16px;border-radius:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btns button:hover{border-color:var(--ink)}
+.hint{font-size:14px;color:var(--mute);margin:10px 0 0}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px 48px;border-top:1px solid var(--line);padding-top:24px}
+.notes ul{margin:0;padding-left:1.1em}
+.notes li{margin:0 0 8px;max-width:62ch}
+@media(max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}.fig{max-height:none}.notes{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+<h1>Living room layout</h1>
+<p>Drawn to scale from your sketch and photo, fireplace at the top. Drag the pieces and tap one to edit it. Red lines are its clearances in cm, dotted lines are the routes to keep clear. Set up for your 55 in TV; add or remove pieces as you like.</p>
+</div></header>
+<main class="band" style="padding-top:0"><div class="wrap grid">
+<div class="fig" id="fig"><svg id="plan" role="img" aria-label="Floor plan of the living room with draggable furniture"></svg></div>
+<div class="panel">
+<div class="figs">
+<div><span class="k">Walk to the kitchen</span><b id="vPass"></b><span class="s" id="sPass"></span></div>
+<div><span class="k">Walk along the back</span><b id="vBack"></b><span class="s" id="sBack"></span></div>
+<div><span class="k">Main seats to TV</span><b id="vView"></b><span class="s" id="sView"></span></div>
+<div><span class="k">Clashes</span><b id="vClash"></b><span class="s" id="sClash"></span></div>
+</div>
+<section><h2>Layouts</h2><div class="presets" id="presets"></div></section>
+<section class="tg"><label><input type="checkbox" id="bed"> Open the sofa bed</label><label><input type="checkbox" id="rug"> Rug</label></section>
+<section><h2>Add furniture</h2><div class="adds" id="adds"></div></section>
+<section class="ed" id="ed"></section>
+</div>
+</div></main>
+<section class="band" style="padding-top:0"><div class="wrap notes">
+<div><h2>Your 55 in TV sets where the sofa goes</h2><ul>
+<li>A 55 in looks right from 2.1 to 2.8 m. In the alcove layout that pulls the sofa about 1.9 m off the back wall, measured to the sofa's back.</li>
+<li>That frees a strip behind it: a console against the sofa back and a sideboard on the back wall still leave 110 cm to walk between the doors.</li>
+<li>A 140 cm unit suits a 55 in and leaves 16 cm each side in the 172 cm alcove.</li>
+<li>The shelves, console and sideboard are suggestions. Remove them or add an armchair, lamp or desk with the buttons.</li>
+</ul></div>
+<div><h2>Sofa: up to 290 cm long, chaise on the right</h2><ul>
+<li>A long side up to 290 cm still leaves 90 cm or more past the pier to the kitchen. The chaise can run to about 170 cm.</li>
+<li>A chaise on your right as you sit is usually listed as left-hand facing, because brands name it as you stand facing the sofa. Check each brand's diagram.</li>
+<li>Sofa bed: the mattress comes out about 120 cm past the seat. In the alcove layout it stops about 15 cm short of the hearth once the coffee table is moved. Tick "Open the sofa bed" to see it.</li>
+<li>Rug: 160 × 230 cm in the alcove layout, 200 × 290 cm facing the right wall. Both are stock sizes.</li>
+</ul></div>
+<div><h2>Assumptions to check with a tape</h2><ul>
+<li>Chimney breast 35 cm deep, hearth 35 cm in front of it. Neither is on the sketch.</li>
+<li>Bedroom and entrance door 80 cm, hinged in the corner and opening into the room.</li>
+<li>The left wall adds up to 4.51 m against 4.90 on the right. I put the missing 39 cm between the office corridor and the back wall.</li>
+<li>4.23 m wide at the fireplace end (1.13 + 1.38 + 1.72), 3.84 m nearer the back, where the wall steps in 39 cm.</li>
+<li>The short grey bar in the left alcove is the radiator, small white marks are sockets, red on the right wall is the TV point.</li>
+</ul></div>
+</div></section>
+<script>
+{
+const $=id=>document.getElementById(id);
+const fig=$('fig'),svg=$('plan'),ed=$('ed');
+const T=.12,RW=4.23,RH=4.9,KEY='oak-living-v3';
+const OBS=[{n:'wall',r:[-9,-9,0,9]},{n:'wall',r:[-9,-9,9,0]},{n:'wall',r:[RW,-9,9,9]},{n:'wall',r:[-9,RH,9,9]},{n:'wall',r:[-9,2.65,.39,9]},{n:'chimney breast',r:[1.13,-9,2.51,.35]},{n:'hearth',r:[1.27,.35,2.37,.70]},{n:'radiator',r:[0,0,.19,.11]},{n:'door swing',r:[RW-.8,RH-.8,RW,RH],c:[RW,RH,.8]}];
+const SOFA={id:'sofa',kind:'sofa',name:'Corner sofa',W:2.9,D:.95,L:1.65};
+const TABLE={id:'table',kind:'table',name:'Coffee table',w:1.2,d:.6};
+const RUG={id:'rug',kind:'rug',name:'Rug',w:2.9,d:2.0};
+const BOX={armchair:['Armchair',.8,.85,'chair'],side:['Side table',.45,.45,'wood'],console:['Console',1.6,.35,'wood'],sideboard:['Sideboard',1.8,.45,'wood'],shelves:['Shelves',.8,.3,'white'],lamp:['Floor lamp',.4,.4,'lamp'],desk:['Desk',1.2,.6,'wood'],dining:['Dining table',1.4,.8,'wood']};
+const box=(t,id,x,y,rot=0,w,d)=>{const b=BOX[t];return{id,kind:'box',type:t,name:b[0],w:w??b[1],d:d??b[2],style:b[3],x,y,rot}};
+const PRESETS={
+alcove:[{...SOFA,x:1.31,y:1.35,side:'L',rot:180},{...TABLE,x:1.69,y:1.0,rot:0},{id:'tv',kind:'tv',name:'TV unit',x:2.67,y:0,w:1.4,d:.4,rot:0,wall:false},{...RUG,x:1.14,y:.85,w:2.3,d:1.6,rot:0},box('console','b1',1.6,3.0),box('sideboard','b2',1.0,4.45),box('shelves','b3',.25,0)],
+side:[{...SOFA,x:1.3,y:.95,side:'L',rot:270},{...TABLE,x:2.7,y:1.33,rot:90},{id:'tv',kind:'tv',name:'TV unit',x:3.83,y:1.23,w:1.4,d:.4,rot:90,wall:false},{...RUG,x:1.8,y:.8,rot:90},box('shelves','b1',.25,0),box('shelves','b2',2.57,0,0,1.6,.3)]};
+const PL=[['alcove','TV in the right alcove','Recommended. TV unit on the TV point, sofa pulled forward so you sit 2.8 m from your 55 in. The strip behind takes a console and a sideboard, and the chaise looks straight at the TV.'],['side','Facing the right wall','TV on a unit against the right wall, 2.5 m from the sofa, about 1 m of cable from the TV point. Both alcoves free for shelves, but the fireplace ends up side-on and the sofa end is tight to the hearth.']];
+const ROUTES=[{id:'Back',h:4.25,a:.45,b:4.15},{id:'Pass',v:.85,a:1.0,b:4.25}];
+const S={items:[],preset:'alcove',bed:false,rug:true,sel:'sofa',n:10};
+let G={k:1,ox:0,oy:0},hist=[],before=null,drag=null,planFocus=false;
+const clone=o=>JSON.parse(JSON.stringify(o));
+const snapshot=()=>JSON.stringify({items:S.items,preset:S.preset,bed:S.bed,rug:S.rug,sel:S.sel});
+const restore=j=>{Object.assign(S,JSON.parse(j))};
+const cl=(v,a,b)=>Math.min(b,Math.max(a,v));
+const r2=v=>Math.round(v*100)/100;
+const cur=()=>S.items.find(i=>i.id===S.sel);
+const shown=()=>S.items.filter(i=>i.kind!=='rug'||S.rug);
+function parts(it){if(it.kind==='sofa'){const{W,D,L}=it;return it.side==='R'?[{k:'seat',r:[0,0,W-D,D]},{k:'corner',r:[W-D,0,W,D]},{k:'chaise',r:[W-D,D,W,L]}]:[{k:'corner',r:[0,0,D,D]},{k:'seat',r:[D,0,W,D]},{k:'chaise',r:[0,D,D,L]}]}return[{k:'body',r:[0,0,it.w,it.d]}]}
+function dims(it){return it.kind==='sofa'?[it.W,it.L]:[it.w,it.d]}
+function tp(it,u,v){const[bw,bh]=dims(it),x=it.x,y=it.y;switch(it.rot){case 90:return[x+bh-v,y+u];case 180:return[x+bw-u,y+bh-v];case 270:return[x+v,y+bw-u];default:return[x+u,y+v]}}
+function tr(it,r){const a=tp(it,r[0],r[1]),b=tp(it,r[2],r[3]);return[Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.max(a[0],b[0]),Math.max(a[1],b[1])]}
+function bbox(it){const[bw,bh]=dims(it);return it.rot%180?[it.x,it.y,it.x+bh,it.y+bw]:[it.x,it.y,it.x+bw,it.y+bh]}
+function rparts(it){return parts(it).map(p=>({k:p.k,r:tr(it,p.r)}))}
+function bedRect(so,full){const s=parts(so).find(p=>p.k==='seat').r,c=(s[0]+s[2])/2,h=Math.min(.7,(s[2]-s[0])/2);return tr(so,[c-h,full?.2:so.D,c+h,2.15])}
+const ov=(a,b,e=.005)=>a[0]<b[2]-e&&b[0]<a[2]-e&&a[1]<b[3]-e&&b[1]<a[3]-e;
+const circ=(r,c)=>Math.hypot(cl(c[0],r[0],r[2])-c[0],cl(c[1],r[1],r[3])-c[1])<c[2]-.005;
+const isWallTv=i=>i.kind==='tv'&&i.wall;
+function rays(src,others){const out=[];for(const dir of['l','r','u','d']){let best=null;const hz=dir==='l'||dir==='r';for(const o of others){const r=o.r,lo=Math.max(hz?src[1]:src[0],hz?r[1]:r[0]),hi=Math.min(hz?src[3]:src[2],hz?r[3]:r[2]);if(hi-lo<.02)continue;let g;if(dir==='l'){if(r[2]>src[0]+.005)continue;g=src[0]-r[2]}else if(dir==='r'){if(r[0]<src[2]-.005)continue;g=r[0]-src[2]}else if(dir==='u'){if(r[3]>src[1]+.005)continue;g=src[1]-r[3]}else{if(r[1]<src[3]-.005)continue;g=r[1]-src[3]}if(!best||g<best.g)best={dir,g,lo,hi,o}}if(best)out.push(best)}return out}
+function clashes(){const m=new Set(),its=shown().filter(i=>i.kind!=='rug');for(const it of its){const ps=rparts(it).map(p=>p.r);for(const o of OBS){if(isWallTv(it)&&o.n!=='wall')continue;if(ps.some(r=>o.c?circ(r,o.c):ov(r,o.r)))m.add(`${it.name} hits the ${o.n}`)}}
+for(let i=0;i<its.length;i++)for(let j=i+1;j<its.length;j++){const a=its[i],b=its[j];if(isWallTv(a)||isWallTv(b))continue;if(rparts(a).some(p=>rparts(b).some(q=>ov(p.r,q.r))))m.add(`${a.name} and ${b.name.toLowerCase()} overlap`)}
+if(S.bed){const so=S.items.find(i=>i.kind==='sofa'),br=bedRect(so,false);for(const it of its)if(it!==so&&!isWallTv(it)&&rparts(it).some(p=>ov(p.r,br)))m.add(`Open bed hits the ${it.name.toLowerCase()}`);for(const o of OBS)if(o.c?circ(br,o.c):ov(br,o.r))m.add(`Open bed hits the ${o.n}`)}return[...m]}
+function pill(x,y,t,rot){const w=10+t.length*7.6;return`<g class="pill"${rot?` transform="rotate(90 ${x} ${y})"`:''}><rect x="${(x-w/2).toFixed(1)}" y="${(y-10).toFixed(1)}" width="${w.toFixed(1)}" height="20" rx="10"/><text x="${x.toFixed(1)}" y="${(y+.5).toFixed(1)}">${t}</text></g>`}
+const TVW=1.22;
+function draw(){
+const W=fig.clientWidth,H=fig.clientHeight;if(!W||!H)return;
+const nar=W<520,ml=nar?26:46,mr=nar?30:48,mt=nar?30:38,mb=nar?30:38;
+const k=Math.min((W-ml-mr)/(RW+2*T),(H-mt-mb)/(RH+2*T));
+const ox=ml+(W-ml-mr-(RW+2*T)*k)/2+T*k,oy=mt+(H-mt-mb-(RH+2*T)*k)/2+T*k;
+G={k,ox,oy};
+const X=x=>+(ox+x*k).toFixed(1),Y=y=>+(oy+y*k).toFixed(1),L=v=>+(v*k).toFixed(1);
+const R=(r,c,a='')=>`<rect x="${X(r[0])}" y="${Y(r[1])}" width="${L(r[2]-r[0])}" height="${L(r[3]-r[1])}" class="${c}" ${a}/>`;
+const lab=(r,t,lt)=>{const w=L(r[2]-r[0]),h=L(r[3]-r[1]);return w>t.length*7.4+10&&h>20?`<text class="flab${lt?' lt':''}" x="${X((r[0]+r[2])/2)}" y="${Y((r[1]+r[3])/2)}">${t}</text>`:''};
+const pw=1.2*k,rh=.14*k;
+let s=`<defs><pattern id="oak" patternUnits="userSpaceOnUse" width="${pw}" height="${4*rh}" x="${ox}" y="${oy}">`;
+[.15,.8,.45,1.05].forEach((j,i)=>{const j2=(j+.6)%1.2;s+=`<rect class="p${i}" x="0" y="${i*rh}" width="${pw}" height="${rh}"/><line class="pj" x1="0" x2="${pw}" y1="${i*rh}" y2="${i*rh}"/><line class="pj" x1="${j*k}" x2="${j*k}" y1="${i*rh}" y2="${(i+1)*rh}"/><line class="pj" x1="${j2*k}" x2="${j2*k}" y1="${i*rh}" y2="${(i+1)*rh}"/>`});
+s+=`</pattern><pattern id="hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><line class="hl" x1="0" y1="0" x2="0" y2="8"/></pattern><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ahp" d="M0 0L10 5L0 10z"/></marker></defs>`;
+const fl=[[0,0],[1.13,0],[1.13,.35],[2.51,.35],[2.51,0],[RW,0],[RW,RH],[.39,RH],[.39,2.65],[0,2.65]];
+s+=`<polygon points="${fl.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="url(#oak)"/>`;
+[[-T,.31,0,1.5],[.39-T,3.74,.39,4.51],[RW,4.1,RW+T,RH]].forEach(r=>s+=R(r,'','fill="url(#oak)"'));
+[[-T,-T,1.13,0],[1.13,-T,2.51,.35],[2.51,-T,RW+T,0],[RW,-T,RW+T,4.1],[RW,RH,RW+T,RH+T],[.39-T,RH,RW+T,RH+T],[.39-T,4.51,.39,RH],[-T,2.65,.39,3.74],[-T,1.5,0,2.65],[-T,-T,0,.31]].forEach(r=>s+=R(r,'wall'));
+s+=`<text class="wt" x="${X(1.82)}" y="${Y((.35-T)/2)}">Fireplace</text>`;
+s+=R([1.27,.35,2.37,.7],'hearth')+R([0,0,.19,.11],'rad')+R([.72,0,.82,.035],'sock')+R([3.88,0,3.98,.035],'sock')+R([RW-.05,.25,RW,.55],'tvp');
+s+=R([RW-.8,RH-.04,RW,RH],'leaf')+`<path class="swing" d="M${X(RW)} ${Y(4.1)}A${L(.8)} ${L(.8)} 0 0 0 ${X(RW-.8)} ${Y(RH)}"/>`;
+s+=`<path class="route" marker-start="url(#ah)" marker-end="url(#ah)" d="M${X(RW+.06)} ${Y(4.25)}H${X(.33)}"/><path class="route" marker-end="url(#ah)" d="M${X(.85)} ${Y(4.25)}V${Y(.9)}H${X(-.08)}"/>`;
+const ty=Y(-T)-(nar?14:18),by=Y(RH+T)+(nar?14:18),rx=X(RW+T)+(nar?22:34);
+const hb=(a,b,y,t)=>{const x1=X(a)+2,x2=X(b)-2;return`<path class="dimo" d="M${x1} ${y-4}V${y+4}M${x1} ${y}H${x2}M${x2} ${y-4}V${y+4}"/>`+pill((x1+x2)/2,y,t)};
+s+=hb(0,1.13,ty,'1.13')+hb(1.13,2.51,ty,'1.38')+hb(2.51,RW,ty,'1.72')+hb(.39,RW,by,'3.84');
+const y1=Y(0)+2,y2=Y(RH)-2;s+=`<path class="dimo" d="M${rx-4} ${y1}H${rx+4}M${rx} ${y1}V${y2}M${rx-4} ${y2}H${rx+4}"/>`+pill(rx,(y1+y2)/2,'4.90',true);
+const lx=X(-T)-(nar?11:15),rlx=X(RW+T)+(nar?10:14);
+const vt=(x,y,t,rot,a)=>`<text class="lab" text-anchor="${a}" transform="translate(${x} ${y}) rotate(${rot})">${t}</text>`;
+s+=vt(lx,Y(.905),nar?'Kitchen':'Kitchen + garden',-90,'middle')+vt(lx,Y(4.125),nar?'Office, bath':'Office + bathroom',-90,'middle')+vt(rlx,Y(.22),'TV point',90,'start')+vt(rlx,Y(RH),nar?'Bedroom, entry':'Bedroom + entrance',90,'end');
+const order=['rug','box','table','tv','sofa'];
+for(const it of shown().sort((a,b)=>order.indexOf(a.kind)-order.indexOf(b.kind))){
+s+=`<g class="it" data-id="${it.id}">`;const b=bbox(it);
+if(it.kind==='rug')s+=R(b,'rug','rx="3"')+R([b[0]+.07,b[1]+.07,b[2]-.07,b[3]-.07],'rugb');
+else if(it.kind==='table')s+=R(b,'tbl','rx="3"')+lab(b,'Table',true);
+else if(it.kind==='box'){if(it.style==='lamp')s+=`<circle class="lamp" cx="${X((b[0]+b[2])/2)}" cy="${Y((b[1]+b[3])/2)}" r="${L(Math.min(b[2]-b[0],b[3]-b[1])/2)}"/>`;else{s+=R(b,'bx '+it.style,'rx="2"');if(it.style==='chair')s+=R(tr(it,[0,0,it.w,.18]),'sofab');s+=lab(b,it.name,false)}}
+else if(it.kind==='tv'){if(it.wall)s+=R([b[0]-.05,b[1]-.08,b[2]+.05,b[3]+.12],'hit')+R(b,'tvw');else{const sw=Math.min(it.w-.04,TVW);s+=R(b,'unit')+R(tr(it,[(it.w-sw)/2,.05,(it.w+sw)/2,.11]),'scr')}}
+else{const P=rparts(it),{W,D,L:Lc}=it,seat=parts(it).find(p=>p.k==='seat').r;
+P.forEach(p=>s+=R(p.r,'sofa'));s+=R(tr(it,[0,0,W,.2]),'sofab');
+const n=Math.max(1,Math.round((seat[2]-seat[0])/.7));
+for(let i=0;i<=n;i++){if(it.side==='R'&&i===0||it.side==='L'&&i===n)continue;const u=seat[0]+(seat[2]-seat[0])*i/n,a=tp(it,u,.2),c=tp(it,u,D);s+=`<line class="seam" x1="${X(a[0])}" y1="${Y(a[1])}" x2="${X(c[0])}" y2="${Y(c[1])}"/>`}
+const ch=it.side==='R'?[W-D,W]:[0,D],a=tp(it,ch[0],D),c=tp(it,ch[1],D);s+=`<line class="seam" x1="${X(a[0])}" y1="${Y(a[1])}" x2="${X(c[0])}" y2="${Y(c[1])}"/>`;
+const poly=it.side==='R'?[[0,0],[W,0],[W,Lc],[W-D,Lc],[W-D,D],[0,D]]:[[0,0],[W,0],[W,D],[D,D],[D,Lc],[0,Lc]];
+s+=`<path class="sofao" d="M${poly.map(p=>{const q=tp(it,p[0],p[1]);return X(q[0])+' '+Y(q[1])}).join('L')}Z"/>`;
+s+=lab(tr(it,[seat[0],.2,seat[2],D]),`Sofa ${Math.round(W*100)} × ${Math.round(Lc*100)}`,false)}
+s+='</g>'}
+if(S.bed){const so=S.items.find(i=>i.kind==='sofa');s+=R(bedRect(so,true),'bed');s+=lab(bedRect(so,false),'Bed out',false).replace('flab','flab lt')}
+const it=cur();
+if(it){const b=bbox(it);if(it.kind==='sofa'){const{W,D,L:Lc}=it,o=.03,poly=it.side==='R'?[[-o,-o],[W+o,-o],[W+o,Lc+o],[W-D-o,Lc+o],[W-D-o,D+o],[-o,D+o]]:[[-o,-o],[W+o,-o],[W+o,D+o],[D+o,D+o],[D+o,Lc+o],[-o,Lc+o]];s+=`<path class="sel" d="M${poly.map(p=>{const q=tp(it,p[0],p[1]);return X(q[0])+' '+Y(q[1])}).join('L')}Z"/>`}else s+=R([b[0]-.03,b[1]-.03,b[2]+.03,b[3]+.03],'sel');
+const others=OBS.map(o=>({r:o.r}));
+if(it.kind!=='rug')for(const o of shown())if(o!==it&&o.kind!=='rug')rparts(o).forEach(p=>others.push({r:p.r}));
+const mine=rparts(it);mine.forEach(p=>others.push({r:p.r,sib:p}));
+for(const p of mine)for(const g of rays(p.r,others.filter(o=>o.sib!==p))){
+if(g.o.sib||g.g<.03||g.g>3.2)continue;
+const m=(g.lo+g.hi)/2,r=p.r;let A,B;
+if(g.dir==='l'){A=[r[0],m];B=[r[0]-g.g,m]}else if(g.dir==='r'){A=[r[2],m];B=[r[2]+g.g,m]}else if(g.dir==='u'){A=[m,r[1]];B=[m,r[1]-g.g]}else{A=[m,r[3]];B=[m,r[3]+g.g]}
+const x1=X(A[0]),yy1=Y(A[1]),x2=X(B[0]),yy2=Y(B[1]),hz=g.dir==='l'||g.dir==='r',t=String(Math.round(g.g*100)),len=Math.hypot(x2-x1,yy2-yy1),pw2=10+t.length*7.6;
+s+=`<line class="dim" x1="${x1}" y1="${yy1}" x2="${x2}" y2="${yy2}"/>`;
+s+=hz?`<path class="dimo" d="M${x1} ${yy1-5}V${yy1+5}M${x2} ${yy2-5}V${yy2+5}"/>`:`<path class="dimo" d="M${x1-5} ${yy1}H${x1+5}M${x2-5} ${yy2}H${x2+5}"/>`;
+const mx=(x1+x2)/2,my=(yy1+yy2)/2,fit=len>(hz?pw2:20)+8;
+s+=pill(fit?mx:hz?mx:mx+pw2/2+8,fit?my:hz?my-16:my,t)}}
+svg.innerHTML=s}
+function put(id,v){const el=$('v'+id),st=$('s'+id),c=v>=.9?'':v>=.75?'tight':'bad';el.textContent=Math.max(0,Math.round(v*100))+' cm';el.className=c;st.className='s '+c;st.textContent=v>=.9?'comfortable':v>=.75?'tight, aim for 90':'too narrow'}
+function figures(){
+const rs=shown().filter(i=>i.kind!=='rug'&&!isWallTv(i)).flatMap(i=>rparts(i).map(p=>p.r)).concat(OBS.filter(o=>!o.c).map(o=>o.r));
+for(const rt of ROUTES){let mn=9;for(let t=rt.a;t<=rt.b+1e-9;t+=.05){const hz=rt.h!=null,x=hz?t:rt.v,y=hz?rt.h:t;let lo=-9,hi=9,blk=false;for(const r of rs){if(hz?(r[0]<x&&r[2]>x):(r[1]<y&&r[3]>y)){const r0=hz?r[1]:r[0],r1=hz?r[3]:r[2],c=hz?y:x;if(r1<=c+1e-9)lo=Math.max(lo,r1);else if(r0>=c-1e-9)hi=Math.min(hi,r0);else blk=true}}mn=Math.min(mn,blk?0:hi-lo)}put(rt.id,mn)}
+const so=S.items.find(i=>i.kind==='sofa'),tv=S.items.find(i=>i.kind==='tv'),seat=parts(so).find(p=>p.k==='seat').r,e=tp(so,(seat[0]+seat[2])/2,.35),t=tp(tv,tv.w/2,Math.min(.1,tv.d/2)),d=Math.hypot(e[0]-t[0],e[1]-t[1]);
+const dr=Math.round(d*10)/10;$('vView').textContent=dr.toFixed(1)+' m';$('vView').className=dr>2.8||dr<2.1?'tight':'';$('sView').className='s '+(dr>2.8||dr<2.1?'tight':'');$('sView').textContent=dr>2.8?'far for a 55 in, aim for 2.1 to 2.8 m':dr<2.1?'close for a 55 in, aim for 2.1 to 2.8 m':'right for a 55 in';
+
+const c=clashes();$('vClash').textContent=c.length?String(c.length):'None';$('vClash').className=c.length?'bad':'';$('sClash').textContent=c.length?c.join('; '):'everything fits';$('sClash').className='s'+(c.length?' bad':'')}
+function markPresets(){document.querySelectorAll('#presets button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.p===S.preset)))}
+function save(){try{localStorage.setItem(KEY,snapshot())}catch(e){}}
+function render(){draw();figures();markPresets();$('bed').checked=S.bed;$('rug').checked=S.rug;save()}
+function buildEditor(){const it=cur();if(!it){ed.innerHTML='';return}
+const f=(id,l,v)=>`<div><label for="${id}">${l}</label><div class="in"><input id="${id}" type="number" inputmode="numeric" step="5" value="${Math.round(v*100)}"><span>cm</span></div></div>`;
+let h=`<h2>${it.name}</h2><div class="fields">`+(it.kind==='sofa'?f('fW','Long side',it.W)+f('fD','Depth',it.D)+f('fL','Chaise length',it.L):f('fW','Width',it.w)+f('fD','Depth',it.d))+'</div>';
+h+=`<p class="hint">${it.kind==='sofa'?(it.side==='L'?'Chaise on your right as you sit, usually listed as left-hand facing.':'Chaise on your left as you sit, usually listed as right-hand facing.')+' ':''}Arrow keys nudge 1 cm, Shift for 10 cm.</p>`;
+h+=`<div class="btns"><button type="button" id="bRot">Rotate 90°</button>${it.kind==='sofa'?'<button type="button" id="bFlip">Flip chaise</button>':''}${it.kind==='box'?'<button type="button" id="bDel">Remove</button>':''}<button type="button" id="bUndo">Undo</button></div>`;ed.innerHTML=h}
+function setDim(it,id,v){const anc=it.kind==='sofa'?(it.side==='R'?[it.W,0]:[0,0]):null,p0=anc?tp(it,anc[0],anc[1]):null,b0=bbox(it);
+if(it.kind==='sofa'){if(id==='fW')it.W=cl(v,1.6,4);if(id==='fD')it.D=cl(v,.6,1.2);if(id==='fL')it.L=cl(v,.9,2.4);it.L=Math.max(it.L,it.D+.3);it.W=Math.max(it.W,it.D+.6)}else{if(id==='fW')it.w=cl(v,.05,4);if(id==='fD')it.d=cl(v,.03,4)}
+if(anc){const a2=it.side==='R'?[it.W,0]:[0,0],p1=tp(it,a2[0],a2[1]);it.x=r2(it.x+p0[0]-p1[0]);it.y=r2(it.y+p0[1]-p1[1])}else{const b1=bbox(it);it.x=r2(it.x+((b0[0]+b0[2])-(b1[0]+b1[2]))/2);it.y=r2(it.y+((b0[1]+b0[3])-(b1[1]+b1[3]))/2)}}
+function change(fn){hist.push(snapshot());if(hist.length>80)hist.shift();fn();S.preset=null;render()}
+function rotate(){const it=cur();if(!it)return;change(()=>{const b0=bbox(it);it.rot=(it.rot+90)%360;const b1=bbox(it);it.x=r2(it.x+((b0[0]+b0[2])-(b1[0]+b1[2]))/2);it.y=r2(it.y+((b0[1]+b0[3])-(b1[1]+b1[3]))/2)})}
+function undo(){if(!hist.length)return;restore(hist.pop());buildEditor();render()}
+function load(k){S.items=clone(PRESETS[k]);S.preset=k;if(!cur())S.sel='sofa'}
+$('presets').innerHTML=PL.map(([k,t,d])=>`<button type="button" data-p="${k}" aria-pressed="false"><b>${t}</b><span>${d}</span></button>`).join('');
+$('adds').innerHTML=Object.entries(BOX).map(([k,b])=>`<button type="button" data-t="${k}">${b[0]}</button>`).join('');
+$('adds').addEventListener('click',e=>{const t=e.target.closest('button')?.dataset.t;if(!t)return;change(()=>{S.n=(S.n||10)+1;const it=box(t,'b'+S.n,0,0);it.x=r2(cl(2.0-it.w/2,0,RW-it.w));it.y=r2(cl(3.6-it.d/2,0,RH-it.d));S.items.push(it);S.sel=it.id});buildEditor()});
+$('presets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;hist.push(snapshot());load(b.dataset.p);buildEditor();render()});
+$('bed').addEventListener('change',e=>{hist.push(snapshot());S.bed=e.target.checked;render()});
+$('rug').addEventListener('change',e=>{hist.push(snapshot());S.rug=e.target.checked;if(!S.rug&&S.sel==='rug'){S.sel='sofa';buildEditor()}render()});
+ed.addEventListener('focusin',e=>{if(e.target.tagName==='INPUT')before=snapshot()});
+ed.addEventListener('input',e=>{const t=e.target;if(t.tagName!=='INPUT')return;const v=parseFloat(t.value)/100;if(!(v>.02&&v<6))return;setDim(cur(),t.id,v);draw();figures();save()});
+ed.addEventListener('change',e=>{if(e.target.tagName==='INPUT'&&before){hist.push(before);before=snapshot();S.preset=null;markPresets()}});
+ed.addEventListener('click',e=>{const id=e.target.closest('button')?.id;if(id==='bRot')rotate();if(id==='bFlip'){const it=cur();change(()=>{it.side=it.side==='L'?'R':'L'});buildEditor()}if(id==='bUndo')undo();if(id==='bDel'){change(()=>{S.items=S.items.filter(i=>i.id!==S.sel);S.sel='sofa'});buildEditor()}});
+const toM=e=>{const b=svg.getBoundingClientRect();return[(e.clientX-b.left-G.ox)/G.k,(e.clientY-b.top-G.oy)/G.k]};
+document.addEventListener('pointerdown',e=>{planFocus=fig.contains(e.target)});
+svg.addEventListener('pointerdown',e=>{const g=e.target.closest('[data-id]');if(!g)return;const it=S.items.find(i=>i.id===g.dataset.id);if(!it)return;if(S.sel!==it.id){S.sel=it.id;buildEditor()}const p=toM(e);drag={it,dx:p[0]-it.x,dy:p[1]-it.y,b:snapshot(),moved:false};svg.setPointerCapture(e.pointerId);e.preventDefault();draw()});
+svg.addEventListener('pointermove',e=>{if(!drag)return;const p=toM(e),it=drag.it,b=bbox(it),bw=b[2]-b[0],bh=b[3]-b[1];const nx=r2(cl(p[0]-drag.dx,0,RW-bw)),ny=r2(cl(p[1]-drag.dy,0,RH-bh));if(nx!==it.x||ny!==it.y){it.x=nx;it.y=ny;drag.moved=true;draw();figures()}});
+const end=()=>{if(drag&&drag.moved){hist.push(drag.b);S.preset=null;render()}drag=null};
+svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='z'&&!e.target.closest('input')){e.preventDefault();undo();return}if(!planFocus||e.target.closest('input'))return;const it=cur();if(!it)return;const st=e.shiftKey?.1:.01,mv={ArrowLeft:[-st,0],ArrowRight:[st,0],ArrowUp:[0,-st],ArrowDown:[0,st]}[e.key];if(mv){e.preventDefault();change(()=>{it.x=r2(it.x+mv[0]);it.y=r2(it.y+mv[1])})}else if(e.key==='r'||e.key==='R')rotate()});
+function start(data){let d=data&&Array.isArray(data.items)?data:null;if(!d){try{d=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){d=null}}if(d&&Array.isArray(d.items)&&d.items.some(i=>i.kind==='sofa')&&d.items.some(i=>i.kind==='tv'))Object.assign(S,d);else load('alcove');buildEditor();render();const ro=new ResizeObserver(draw);ro.observe(fig)}
+window.claude?.hot?.snapshot?.(()=>JSON.parse(snapshot()));
+window.claude?.hot?.ready?window.claude.hot.ready(start):start(window.claude?.hot?.data??{});
+}
+</script>
+</body>
+</html>
