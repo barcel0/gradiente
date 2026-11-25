@@ -64,6 +64,14 @@ svg text{pointer-events:none}
 .adds button{font:500 15px Archivo,sans-serif;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
 .adds button:hover{border-color:var(--ink)}
 .adds button::before{content:'+ ';color:var(--pen);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:500 15px Archivo,sans-serif;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.chips button:hover{border-color:var(--ink)}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ott{fill:#ddd0bb;stroke:#6f604c;stroke-width:1.4}
+.btn{fill:#8f7f66}
+.chev{fill:none;stroke:#6f604c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ed .tg{margin-top:6px}
 .sofa{fill:#e8e0d3;stroke:#e8e0d3;stroke-width:1}
 .sofab{fill:#d5c9b5}
 .seam{stroke:#a8987f;stroke-width:1}
@@ -122,23 +130,26 @@ input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:var(--pen)}
 <div><span class="k">Clashes</span><b id="vClash"></b><span class="s" id="sClash"></span></div>
 </div>
 <section><h2>Layouts</h2><div class="presets" id="presets"></div></section>
-<section class="tg"><label><input type="checkbox" id="bed"> Open the sofa bed</label><label><input type="checkbox" id="rug"> Rug</label></section>
+<section><h2>Sofa type</h2><div class="chips" id="types"></div></section>
+<section class="tg"><label><input type="checkbox" id="bed"> Guests staying (beds open)</label><label><input type="checkbox" id="rug"> Rug</label></section>
 <section><h2>Add furniture</h2><div class="adds" id="adds"></div></section>
 <section class="ed" id="ed"></section>
 </div>
 </div></main>
 <section class="band" style="padding-top:0"><div class="wrap notes">
-<div><h2>Your 55 in TV sets where the sofa goes</h2><ul>
-<li>A 55 in looks right from 2.1 to 2.8 m. In the alcove layout that pulls the sofa about 1.9 m off the back wall, measured to the sofa's back.</li>
-<li>That frees a strip behind it: a console against the sofa back and a sideboard on the back wall still leave 110 cm to walk between the doors.</li>
-<li>A 140 cm unit suits a 55 in and leaves 16 cm each side in the 172 cm alcove.</li>
-<li>The shelves, console and sideboard are suggestions. Remove them or add an armchair, lamp or desk with the buttons.</li>
+<div><h2>Sofa + ottoman: lounge at the front, guest bed behind</h2><ul>
+<li>The 3-seater sits 2.2 m from your 55 in, which leaves a 227 cm strip behind it: exactly a 137 cm bed plus a 90 cm walkway between the back doors.</li>
+<li>Everyday, the Portland (137 × 80 cm closed) sits against the sofa back as a bench. For guests, turn it 90° and it unfolds to 137 × 216 cm behind the sofa. The coffee table stays put.</li>
+<li>With the bed open there's still 90 cm along the back for the bathroom and your bedroom at night, and 91 cm past the pier to the kitchen. The guest gets in from the left end.</li>
+<li>The back wall has to stay clear for that, so the sideboard moves to the left wall between the kitchen opening and the pier (110 × 40 cm).</li>
+<li>The coffee table is 110 × 50 cm so it keeps about 36 cm to the sofa and to the TV unit. Tick "Guests staying" to see the guest setup.</li>
 </ul></div>
-<div><h2>Sofa: up to 290 cm long, chaise on the right</h2><ul>
-<li>A long side up to 290 cm still leaves 90 cm or more past the pier to the kitchen. The chaise can run to about 170 cm.</li>
-<li>A chaise on your right as you sit is usually listed as left-hand facing, because brands name it as you stand facing the sofa. Check each brand's diagram.</li>
-<li>Sofa bed: the mattress comes out about 120 cm past the seat. In the alcove layout it stops about 15 cm short of the hearth once the coffee table is moved. Tick "Open the sofa bed" to see it.</li>
-<li>Rug: 160 × 230 cm in the alcove layout, 200 × 290 cm facing the right wall. Both are stock sizes.</li>
+<div><h2>Other sofas and sizes</h2><ul>
+<li>Switch the sofa type to try a chaise, corner, L-shaped, 2, 3 or 4-seater in any layout. Straight sofas centre on the TV, corner types keep their corner.</li>
+<li>A chaise or corner sofa's long side can go to 290 cm and still leave 90 cm past the pier to the kitchen.</li>
+<li>A chaise on your right as you sit is usually listed as left-hand facing, because brands name it as you stand facing the sofa.</li>
+<li>Tick "Guests staying" to see every bed unfolded: the ottoman, and the sofa's pull-out if you mark it as a sofa bed.</li>
+<li>A 140 cm unit suits a 55 in and leaves 16 cm each side in the 172 cm alcove. Rugs: 160 × 230 or 200 × 290 cm are stock sizes.</li>
 </ul></div>
 <div><h2>Assumptions to check with a tape</h2><ul>
 <li>Chimney breast 35 cm deep, hearth 35 cm in front of it. Neither is on the sketch.</li>
@@ -152,19 +163,23 @@ input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:var(--pen)}
 {
 const $=id=>document.getElementById(id);
 const fig=$('fig'),svg=$('plan'),ed=$('ed');
-const T=.12,RW=4.23,RH=4.9,KEY='oak-living-v3';
+const T=.12,RW=4.23,RH=4.9,KEY='oak-living-v6';
 const OBS=[{n:'wall',r:[-9,-9,0,9]},{n:'wall',r:[-9,-9,9,0]},{n:'wall',r:[RW,-9,9,9]},{n:'wall',r:[-9,RH,9,9]},{n:'wall',r:[-9,2.65,.39,9]},{n:'chimney breast',r:[1.13,-9,2.51,.35]},{n:'hearth',r:[1.27,.35,2.37,.70]},{n:'radiator',r:[0,0,.19,.11]},{n:'door swing',r:[RW-.8,RH-.8,RW,RH],c:[RW,RH,.8]}];
-const SOFA={id:'sofa',kind:'sofa',name:'Corner sofa',W:2.9,D:.95,L:1.65};
+const TYPES={chaise:['Chaise sofa',2.9,.95,1.65],corner:['Corner sofa',2.5,.92,2.5],lshape:['L-shaped sofa',2.9,.92,2.0],s2:['2-seater',1.8,.95],s3:['3-seater',2.3,1.0],s4:['4-seater',2.6,1.0]};
+const straight=so=>so.type==='s2'||so.type==='s3'||so.type==='s4';
+const SOFA={id:'sofa',kind:'sofa',type:'chaise',name:'Chaise sofa',W:2.9,D:.95,L:1.65,bed:true};
+const OTT={kind:'ottoman',name:'Ottoman bed',w:1.37,d:.8,open:2.16};
 const TABLE={id:'table',kind:'table',name:'Coffee table',w:1.2,d:.6};
 const RUG={id:'rug',kind:'rug',name:'Rug',w:2.9,d:2.0};
 const BOX={armchair:['Armchair',.8,.85,'chair'],side:['Side table',.45,.45,'wood'],console:['Console',1.6,.35,'wood'],sideboard:['Sideboard',1.8,.45,'wood'],shelves:['Shelves',.8,.3,'white'],lamp:['Floor lamp',.4,.4,'lamp'],desk:['Desk',1.2,.6,'wood'],dining:['Dining table',1.4,.8,'wood']};
 const box=(t,id,x,y,rot=0,w,d)=>{const b=BOX[t];return{id,kind:'box',type:t,name:b[0],w:w??b[1],d:d??b[2],style:b[3],x,y,rot}};
 const PRESETS={
+ottoman:[{...SOFA,type:'s3',name:'3-seater',W:2.3,D:1.0,L:1.0,bed:false,x:1.91,y:1.63,side:'L',rot:180},{...OTT,id:'ott',x:2.38,y:2.63,rot:0,g:{x:2.66,y:2.63,rot:90}},{...TABLE,x:2.51,y:.76,w:1.1,d:.5,rot:0},{id:'tv',kind:'tv',name:'TV unit',x:2.67,y:0,w:1.4,d:.4,rot:0,wall:false},{...RUG,x:1.91,y:.72,w:2.3,d:1.6,rot:0},box('side','b4',1.41,2.13),box('sideboard','b2',0,1.52,270,1.1,.4),box('shelves','b3',.25,0)],
 alcove:[{...SOFA,x:1.31,y:1.35,side:'L',rot:180},{...TABLE,x:1.69,y:1.0,rot:0},{id:'tv',kind:'tv',name:'TV unit',x:2.67,y:0,w:1.4,d:.4,rot:0,wall:false},{...RUG,x:1.14,y:.85,w:2.3,d:1.6,rot:0},box('console','b1',1.6,3.0),box('sideboard','b2',1.0,4.45),box('shelves','b3',.25,0)],
 side:[{...SOFA,x:1.3,y:.95,side:'L',rot:270},{...TABLE,x:2.7,y:1.33,rot:90},{id:'tv',kind:'tv',name:'TV unit',x:3.83,y:1.23,w:1.4,d:.4,rot:90,wall:false},{...RUG,x:1.8,y:.8,rot:90},box('shelves','b1',.25,0),box('shelves','b2',2.57,0,0,1.6,.3)]};
-const PL=[['alcove','TV in the right alcove','Recommended. TV unit on the TV point, sofa pulled forward so you sit 2.8 m from your 55 in. The strip behind takes a console and a sideboard, and the chaise looks straight at the TV.'],['side','Facing the right wall','TV on a unit against the right wall, 2.5 m from the sofa, about 1 m of cable from the TV point. Both alcoves free for shelves, but the fireplace ends up side-on and the sofa end is tight to the hearth.']];
+const PL=[['ottoman','Comfy sofa + ottoman guest bed','Recommended. Lounge at the front: a 3-seater 2.2 m from the TV with the coffee table in front. The ottoman lives behind the sofa as a bench and opens there for guests. Nothing else moves and both walkways stay clear.'],['alcove','Chaise sofa, TV in the alcove','One big chaise sofa (a sofa bed if you want guests on it). The strip behind takes a console and a sideboard.'],['side','Facing the right wall','TV on a unit against the right wall, 2.5 m from the sofa, about 1 m of cable from the TV point. The fireplace ends up side-on and the sofa end is tight to the hearth.']];
 const ROUTES=[{id:'Back',h:4.25,a:.45,b:4.15},{id:'Pass',v:.85,a:1.0,b:4.25}];
-const S={items:[],preset:'alcove',bed:false,rug:true,sel:'sofa',n:10};
+const S={items:[],preset:'ottoman',bed:false,rug:true,sel:'sofa',n:10};
 let G={k:1,ox:0,oy:0},hist=[],before=null,drag=null,planFocus=false;
 const clone=o=>JSON.parse(JSON.stringify(o));
 const snapshot=()=>JSON.stringify({items:S.items,preset:S.preset,bed:S.bed,rug:S.rug,sel:S.sel});
@@ -173,8 +188,8 @@ const cl=(v,a,b)=>Math.min(b,Math.max(a,v));
 const r2=v=>Math.round(v*100)/100;
 const cur=()=>S.items.find(i=>i.id===S.sel);
 const shown=()=>S.items.filter(i=>i.kind!=='rug'||S.rug);
-function parts(it){if(it.kind==='sofa'){const{W,D,L}=it;return it.side==='R'?[{k:'seat',r:[0,0,W-D,D]},{k:'corner',r:[W-D,0,W,D]},{k:'chaise',r:[W-D,D,W,L]}]:[{k:'corner',r:[0,0,D,D]},{k:'seat',r:[D,0,W,D]},{k:'chaise',r:[0,D,D,L]}]}return[{k:'body',r:[0,0,it.w,it.d]}]}
-function dims(it){return it.kind==='sofa'?[it.W,it.L]:[it.w,it.d]}
+function parts(it){if(it.kind==='sofa'){const{W,D,L}=it;if(straight(it))return[{k:'seat',r:[0,0,W,D]}];return it.side==='R'?[{k:'seat',r:[0,0,W-D,D]},{k:'corner',r:[W-D,0,W,D]},{k:'chaise',r:[W-D,D,W,L]}]:[{k:'corner',r:[0,0,D,D]},{k:'seat',r:[D,0,W,D]},{k:'chaise',r:[0,D,D,L]}]}return[{k:'body',r:[0,0,it.w,it.d]}]}
+function dims(it){return it.kind==='sofa'?[it.W,straight(it)?it.D:it.L]:[it.w,it.d]}
 function tp(it,u,v){const[bw,bh]=dims(it),x=it.x,y=it.y;switch(it.rot){case 90:return[x+bh-v,y+u];case 180:return[x+bw-u,y+bh-v];case 270:return[x+v,y+bw-u];default:return[x+u,y+v]}}
 function tr(it,r){const a=tp(it,r[0],r[1]),b=tp(it,r[2],r[3]);return[Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.max(a[0],b[0]),Math.max(a[1],b[1])]}
 function bbox(it){const[bw,bh]=dims(it);return it.rot%180?[it.x,it.y,it.x+bh,it.y+bw]:[it.x,it.y,it.x+bw,it.y+bh]}
@@ -186,7 +201,8 @@ const isWallTv=i=>i.kind==='tv'&&i.wall;
 function rays(src,others){const out=[];for(const dir of['l','r','u','d']){let best=null;const hz=dir==='l'||dir==='r';for(const o of others){const r=o.r,lo=Math.max(hz?src[1]:src[0],hz?r[1]:r[0]),hi=Math.min(hz?src[3]:src[2],hz?r[3]:r[2]);if(hi-lo<.02)continue;let g;if(dir==='l'){if(r[2]>src[0]+.005)continue;g=src[0]-r[2]}else if(dir==='r'){if(r[0]<src[2]-.005)continue;g=r[0]-src[2]}else if(dir==='u'){if(r[3]>src[1]+.005)continue;g=src[1]-r[3]}else{if(r[1]<src[3]-.005)continue;g=r[1]-src[3]}if(!best||g<best.g)best={dir,g,lo,hi,o}}if(best)out.push(best)}return out}
 function clashes(){const m=new Set(),its=shown().filter(i=>i.kind!=='rug');for(const it of its){const ps=rparts(it).map(p=>p.r);for(const o of OBS){if(isWallTv(it)&&o.n!=='wall')continue;if(ps.some(r=>o.c?circ(r,o.c):ov(r,o.r)))m.add(`${it.name} hits the ${o.n}`)}}
 for(let i=0;i<its.length;i++)for(let j=i+1;j<its.length;j++){const a=its[i],b=its[j];if(isWallTv(a)||isWallTv(b))continue;if(rparts(a).some(p=>rparts(b).some(q=>ov(p.r,q.r))))m.add(`${a.name} and ${b.name.toLowerCase()} overlap`)}
-if(S.bed){const so=S.items.find(i=>i.kind==='sofa'),br=bedRect(so,false);for(const it of its)if(it!==so&&!isWallTv(it)&&rparts(it).some(p=>ov(p.r,br)))m.add(`Open bed hits the ${it.name.toLowerCase()}`);for(const o of OBS)if(o.c?circ(br,o.c):ov(br,o.r))m.add(`Open bed hits the ${o.n}`)}return[...m]}
+if(S.bed){const beds=[];const so=S.items.find(i=>i.kind==='sofa');if(so.bed)beds.push([so,bedRect(so,false),'Open sofa bed']);for(const o of its)if(o.kind==='ottoman')beds.push([o,tr(o,[0,o.d,o.w,o.open]),'Open guest bed']);
+for(const[src,br,nm]of beds){for(const it of its)if(it!==src&&!isWallTv(it)&&rparts(it).some(p=>ov(p.r,br)))m.add(`${nm} hits the ${it.name.toLowerCase()}`);for(const o of OBS)if(o.c?circ(br,o.c):ov(br,o.r))m.add(`${nm} hits the ${o.n}`)}}return[...m]}
 function pill(x,y,t,rot){const w=10+t.length*7.6;return`<g class="pill"${rot?` transform="rotate(90 ${x} ${y})"`:''}><rect x="${(x-w/2).toFixed(1)}" y="${(y-10).toFixed(1)}" width="${w.toFixed(1)}" height="20" rx="10"/><text x="${x.toFixed(1)}" y="${(y+.5).toFixed(1)}">${t}</text></g>`}
 const TVW=1.22;
 function draw(){
@@ -217,25 +233,29 @@ const y1=Y(0)+2,y2=Y(RH)-2;s+=`<path class="dimo" d="M${rx-4} ${y1}H${rx+4}M${rx
 const lx=X(-T)-(nar?11:15),rlx=X(RW+T)+(nar?10:14);
 const vt=(x,y,t,rot,a)=>`<text class="lab" text-anchor="${a}" transform="translate(${x} ${y}) rotate(${rot})">${t}</text>`;
 s+=vt(lx,Y(.905),nar?'Kitchen':'Kitchen + garden',-90,'middle')+vt(lx,Y(4.125),nar?'Office, bath':'Office + bathroom',-90,'middle')+vt(rlx,Y(.22),'TV point',90,'start')+vt(rlx,Y(RH),nar?'Bedroom, entry':'Bedroom + entrance',90,'end');
-const order=['rug','box','table','tv','sofa'];
+const order=['rug','box','table','ottoman','tv','sofa'];
 for(const it of shown().sort((a,b)=>order.indexOf(a.kind)-order.indexOf(b.kind))){
 s+=`<g class="it" data-id="${it.id}">`;const b=bbox(it);
 if(it.kind==='rug')s+=R(b,'rug','rx="3"')+R([b[0]+.07,b[1]+.07,b[2]-.07,b[3]-.07],'rugb');
 else if(it.kind==='table')s+=R(b,'tbl','rx="3"')+lab(b,'Table',true);
+else if(it.kind==='ottoman'){s+=R(b,'ott','rx="4"');for(let a=1;a<=4;a++)for(let c=1;c<=2;c++){const q=tp(it,it.w*a/5,.12+(it.d-.24)*c/3);s+=`<circle class="btn" cx="${X(q[0])}" cy="${Y(q[1])}" r="${Math.max(1.6,.022*k).toFixed(1)}"/>`}const c1=tp(it,it.w/2-.12,it.d-.13),c2=tp(it,it.w/2,it.d-.05),c3=tp(it,it.w/2+.12,it.d-.13);s+=`<path class="chev" d="M${X(c1[0])} ${Y(c1[1])}L${X(c2[0])} ${Y(c2[1])}L${X(c3[0])} ${Y(c3[1])}"/>`}
 else if(it.kind==='box'){if(it.style==='lamp')s+=`<circle class="lamp" cx="${X((b[0]+b[2])/2)}" cy="${Y((b[1]+b[3])/2)}" r="${L(Math.min(b[2]-b[0],b[3]-b[1])/2)}"/>`;else{s+=R(b,'bx '+it.style,'rx="2"');if(it.style==='chair')s+=R(tr(it,[0,0,it.w,.18]),'sofab');s+=lab(b,it.name,false)}}
 else if(it.kind==='tv'){if(it.wall)s+=R([b[0]-.05,b[1]-.08,b[2]+.05,b[3]+.12],'hit')+R(b,'tvw');else{const sw=Math.min(it.w-.04,TVW);s+=R(b,'unit')+R(tr(it,[(it.w-sw)/2,.05,(it.w+sw)/2,.11]),'scr')}}
-else{const P=rparts(it),{W,D,L:Lc}=it,seat=parts(it).find(p=>p.k==='seat').r;
+else{const P=rparts(it),{W,D,L:Lc}=it,seat=parts(it).find(p=>p.k==='seat').r,ln=(u1,v1,u2,v2)=>{const a=tp(it,u1,v1),c=tp(it,u2,v2);return`<line class="seam" x1="${X(a[0])}" y1="${Y(a[1])}" x2="${X(c[0])}" y2="${Y(c[1])}"/>`};
 P.forEach(p=>s+=R(p.r,'sofa'));s+=R(tr(it,[0,0,W,.2]),'sofab');
+if(straight(it)){s+=R(tr(it,[0,0,.16,D]),'sofab')+R(tr(it,[W-.16,0,W,D]),'sofab');const n=Math.max(1,Math.round((W-.32)/.7));for(let i=1;i<n;i++){const u=.16+(W-.32)*i/n;s+=ln(u,.2,u,D)}s+=R(tr(it,[0,0,W,D]),'sofao');s+=lab(tr(it,[.16,.2,W-.16,D]),`${it.name} ${Math.round(W*100)}`,false)}
+else{if(it.type!=='chaise')s+=R(tr(it,it.side==='R'?[W-.2,0,W,Lc]:[0,0,.2,Lc]),'sofab');
 const n=Math.max(1,Math.round((seat[2]-seat[0])/.7));
-for(let i=0;i<=n;i++){if(it.side==='R'&&i===0||it.side==='L'&&i===n)continue;const u=seat[0]+(seat[2]-seat[0])*i/n,a=tp(it,u,.2),c=tp(it,u,D);s+=`<line class="seam" x1="${X(a[0])}" y1="${Y(a[1])}" x2="${X(c[0])}" y2="${Y(c[1])}"/>`}
-const ch=it.side==='R'?[W-D,W]:[0,D],a=tp(it,ch[0],D),c=tp(it,ch[1],D);s+=`<line class="seam" x1="${X(a[0])}" y1="${Y(a[1])}" x2="${X(c[0])}" y2="${Y(c[1])}"/>`;
+for(let i=0;i<=n;i++){if(it.side==='R'&&i===0||it.side==='L'&&i===n)continue;const u=seat[0]+(seat[2]-seat[0])*i/n;s+=ln(u,.2,u,D)}
+const ch=it.side==='R'?[W-D,it.type==='chaise'?W:W-.2]:[it.type==='chaise'?0:.2,D];
+if(it.type==='chaise')s+=ln(ch[0],D,ch[1],D);else{const n2=Math.max(1,Math.round((Lc-D)/.7));for(let i=0;i<n2;i++){const v=D+(Lc-D)*i/n2;s+=ln(ch[0],v,ch[1],v)}}
 const poly=it.side==='R'?[[0,0],[W,0],[W,Lc],[W-D,Lc],[W-D,D],[0,D]]:[[0,0],[W,0],[W,D],[D,D],[D,Lc],[0,Lc]];
 s+=`<path class="sofao" d="M${poly.map(p=>{const q=tp(it,p[0],p[1]);return X(q[0])+' '+Y(q[1])}).join('L')}Z"/>`;
-s+=lab(tr(it,[seat[0],.2,seat[2],D]),`Sofa ${Math.round(W*100)} × ${Math.round(Lc*100)}`,false)}
+s+=lab(tr(it,[seat[0],.2,seat[2],D]),`${it.name.replace(' sofa','')} ${Math.round(W*100)} × ${Math.round(Lc*100)}`,false)}}
 s+='</g>'}
-if(S.bed){const so=S.items.find(i=>i.kind==='sofa');s+=R(bedRect(so,true),'bed');s+=lab(bedRect(so,false),'Bed out',false).replace('flab','flab lt')}
+if(S.bed){const so=S.items.find(i=>i.kind==='sofa');if(so.bed){s+=R(bedRect(so,true),'bed');s+=lab(bedRect(so,false),'Bed out',false)}for(const o of shown())if(o.kind==='ottoman'){s+=R(tr(o,[0,0,o.w,o.open]),'bed');s+=lab(tr(o,[0,o.d,o.w,o.open]),'Guest bed',false)}}
 const it=cur();
-if(it){const b=bbox(it);if(it.kind==='sofa'){const{W,D,L:Lc}=it,o=.03,poly=it.side==='R'?[[-o,-o],[W+o,-o],[W+o,Lc+o],[W-D-o,Lc+o],[W-D-o,D+o],[-o,D+o]]:[[-o,-o],[W+o,-o],[W+o,D+o],[D+o,D+o],[D+o,Lc+o],[-o,Lc+o]];s+=`<path class="sel" d="M${poly.map(p=>{const q=tp(it,p[0],p[1]);return X(q[0])+' '+Y(q[1])}).join('L')}Z"/>`}else s+=R([b[0]-.03,b[1]-.03,b[2]+.03,b[3]+.03],'sel');
+if(it){const b=bbox(it);if(it.kind==='sofa'&&!straight(it)){const{W,D,L:Lc}=it,o=.03,poly=it.side==='R'?[[-o,-o],[W+o,-o],[W+o,Lc+o],[W-D-o,Lc+o],[W-D-o,D+o],[-o,D+o]]:[[-o,-o],[W+o,-o],[W+o,D+o],[D+o,D+o],[D+o,Lc+o],[-o,Lc+o]];s+=`<path class="sel" d="M${poly.map(p=>{const q=tp(it,p[0],p[1]);return X(q[0])+' '+Y(q[1])}).join('L')}Z"/>`}else s+=R([b[0]-.03,b[1]-.03,b[2]+.03,b[3]+.03],'sel');
 const others=OBS.map(o=>({r:o.r}));
 if(it.kind!=='rug')for(const o of shown())if(o!==it&&o.kind!=='rug')rparts(o).forEach(p=>others.push({r:p.r}));
 const mine=rparts(it);mine.forEach(p=>others.push({r:p.r,sib:p}));
@@ -252,35 +272,49 @@ svg.innerHTML=s}
 function put(id,v){const el=$('v'+id),st=$('s'+id),c=v>=.9?'':v>=.75?'tight':'bad';el.textContent=Math.max(0,Math.round(v*100))+' cm';el.className=c;st.className='s '+c;st.textContent=v>=.9?'comfortable':v>=.75?'tight, aim for 90':'too narrow'}
 function figures(){
 const rs=shown().filter(i=>i.kind!=='rug'&&!isWallTv(i)).flatMap(i=>rparts(i).map(p=>p.r)).concat(OBS.filter(o=>!o.c).map(o=>o.r));
+if(S.bed){const so=S.items.find(i=>i.kind==='sofa');if(so.bed)rs.push(bedRect(so,false));for(const o of shown())if(o.kind==='ottoman')rs.push(tr(o,[0,o.d,o.w,o.open]))}
 for(const rt of ROUTES){let mn=9;for(let t=rt.a;t<=rt.b+1e-9;t+=.05){const hz=rt.h!=null,x=hz?t:rt.v,y=hz?rt.h:t;let lo=-9,hi=9,blk=false;for(const r of rs){if(hz?(r[0]<x&&r[2]>x):(r[1]<y&&r[3]>y)){const r0=hz?r[1]:r[0],r1=hz?r[3]:r[2],c=hz?y:x;if(r1<=c+1e-9)lo=Math.max(lo,r1);else if(r0>=c-1e-9)hi=Math.min(hi,r0);else blk=true}}mn=Math.min(mn,blk?0:hi-lo)}put(rt.id,mn)}
 const so=S.items.find(i=>i.kind==='sofa'),tv=S.items.find(i=>i.kind==='tv'),seat=parts(so).find(p=>p.k==='seat').r,e=tp(so,(seat[0]+seat[2])/2,.35),t=tp(tv,tv.w/2,Math.min(.1,tv.d/2)),d=Math.hypot(e[0]-t[0],e[1]-t[1]);
 const dr=Math.round(d*10)/10;$('vView').textContent=dr.toFixed(1)+' m';$('vView').className=dr>2.8||dr<2.1?'tight':'';$('sView').className='s '+(dr>2.8||dr<2.1?'tight':'');$('sView').textContent=dr>2.8?'far for a 55 in, aim for 2.1 to 2.8 m':dr<2.1?'close for a 55 in, aim for 2.1 to 2.8 m':'right for a 55 in';
 
 const c=clashes();$('vClash').textContent=c.length?String(c.length):'None';$('vClash').className=c.length?'bad':'';$('sClash').textContent=c.length?c.join('; '):'everything fits';$('sClash').className='s'+(c.length?' bad':'')}
+function markTypes(){const so=S.items.find(i=>i.kind==='sofa');document.querySelectorAll('#types button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.s===so.type)))}
 function markPresets(){document.querySelectorAll('#presets button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.p===S.preset)))}
 function save(){try{localStorage.setItem(KEY,snapshot())}catch(e){}}
-function render(){draw();figures();markPresets();$('bed').checked=S.bed;$('rug').checked=S.rug;save()}
+function render(){draw();figures();markPresets();markTypes();$('bed').checked=S.bed;$('rug').checked=S.rug;save()}
 function buildEditor(){const it=cur();if(!it){ed.innerHTML='';return}
 const f=(id,l,v)=>`<div><label for="${id}">${l}</label><div class="in"><input id="${id}" type="number" inputmode="numeric" step="5" value="${Math.round(v*100)}"><span>cm</span></div></div>`;
-let h=`<h2>${it.name}</h2><div class="fields">`+(it.kind==='sofa'?f('fW','Long side',it.W)+f('fD','Depth',it.D)+f('fL','Chaise length',it.L):f('fW','Width',it.w)+f('fD','Depth',it.d))+'</div>';
-h+=`<p class="hint">${it.kind==='sofa'?(it.side==='L'?'Chaise on your right as you sit, usually listed as left-hand facing.':'Chaise on your left as you sit, usually listed as right-hand facing.')+' ':''}Arrow keys nudge 1 cm, Shift for 10 cm.</p>`;
-h+=`<div class="btns"><button type="button" id="bRot">Rotate 90°</button>${it.kind==='sofa'?'<button type="button" id="bFlip">Flip chaise</button>':''}${it.kind==='box'?'<button type="button" id="bDel">Remove</button>':''}<button type="button" id="bUndo">Undo</button></div>`;ed.innerHTML=h}
+let flds,hint='';
+if(it.kind==='sofa'){flds=straight(it)?f('fW','Length',it.W)+f('fD','Depth',it.D):f('fW','Long side',it.W)+f('fD','Depth',it.D)+f('fL',it.type==='chaise'?'Chaise length':'Other side',it.L);
+if(!straight(it))hint=it.type==='chaise'?(it.side==='L'?'Chaise on your right as you sit, usually listed as left-hand facing. ':'Chaise on your left as you sit, usually listed as right-hand facing. '):(it.side==='L'?'Short side on your right as you sit. ':'Short side on your left as you sit. ')}
+else if(it.kind==='ottoman'){flds=f('fW','Width',it.w)+f('fD','Depth closed',it.d)+f('fO','Open length',it.open);hint='The chevron shows which way it unfolds. Rotate it so the bed lands on free floor. '}
+else flds=f('fW','Width',it.w)+f('fD','Depth',it.d);
+let h=`<h2>${it.name}</h2><div class="fields">${flds}</div>`;
+if(it.kind==='sofa')h+=`<div class="tg"><label><input type="checkbox" id="fBed"${it.bed?' checked':''}> It's a sofa bed (pull-out)</label></div>`;
+h+=`<p class="hint">${hint}Arrow keys nudge 1 cm, Shift for 10 cm.</p>`;
+const rm=it.kind==='box'||it.kind==='ottoman'||it.kind==='table';
+h+=`<div class="btns"><button type="button" id="bRot">Rotate 90°</button>${it.kind==='sofa'&&!straight(it)?'<button type="button" id="bFlip">Flip side</button>':''}${rm?'<button type="button" id="bDel">Remove</button>':''}<button type="button" id="bUndo">Undo</button></div>`;ed.innerHTML=h}
 function setDim(it,id,v){const anc=it.kind==='sofa'?(it.side==='R'?[it.W,0]:[0,0]):null,p0=anc?tp(it,anc[0],anc[1]):null,b0=bbox(it);
-if(it.kind==='sofa'){if(id==='fW')it.W=cl(v,1.6,4);if(id==='fD')it.D=cl(v,.6,1.2);if(id==='fL')it.L=cl(v,.9,2.4);it.L=Math.max(it.L,it.D+.3);it.W=Math.max(it.W,it.D+.6)}else{if(id==='fW')it.w=cl(v,.05,4);if(id==='fD')it.d=cl(v,.03,4)}
+if(it.kind==='sofa'){if(id==='fW')it.W=cl(v,1.2,4);if(id==='fD')it.D=cl(v,.6,1.2);if(id==='fL')it.L=cl(v,.9,3.5);if(!straight(it)){it.L=Math.max(it.L,it.D+.3);it.W=Math.max(it.W,it.D+.6)}}else{if(id==='fW')it.w=cl(v,.05,4);if(id==='fD')it.d=cl(v,.03,4);if(id==='fO')it.open=cl(v,it.d+.3,3)}
 if(anc){const a2=it.side==='R'?[it.W,0]:[0,0],p1=tp(it,a2[0],a2[1]);it.x=r2(it.x+p0[0]-p1[0]);it.y=r2(it.y+p0[1]-p1[1])}else{const b1=bbox(it);it.x=r2(it.x+((b0[0]+b0[2])-(b1[0]+b1[2]))/2);it.y=r2(it.y+((b0[1]+b0[3])-(b1[1]+b1[3]))/2)}}
 function change(fn){hist.push(snapshot());if(hist.length>80)hist.shift();fn();S.preset=null;render()}
 function rotate(){const it=cur();if(!it)return;change(()=>{const b0=bbox(it);it.rot=(it.rot+90)%360;const b1=bbox(it);it.x=r2(it.x+((b0[0]+b0[2])-(b1[0]+b1[2]))/2);it.y=r2(it.y+((b0[1]+b0[3])-(b1[1]+b1[3]))/2)})}
 function undo(){if(!hist.length)return;restore(hist.pop());buildEditor();render()}
-function load(k){S.items=clone(PRESETS[k]);S.preset=k;if(!cur())S.sel='sofa'}
+function setSofaType(so,t){const T0=TYPES[t],anc=so.side==='R'?[so.W,0]:[0,0],p0=tp(so,anc[0],anc[1]);so.type=t;so.name=T0[0];so.W=T0[1];so.D=T0[2];so.L=T0[3]||T0[2];const a2=so.side==='R'?[so.W,0]:[0,0],p1=tp(so,a2[0],a2[1]);so.x=r2(so.x+p0[0]-p1[0]);so.y=r2(so.y+p0[1]-p1[1]);
+if(straight(so)){const tv=S.items.find(i=>i.kind==='tv'),tc=tp(tv,tv.w/2,.1),b=bbox(so),bw=b[2]-b[0],bh=b[3]-b[1];if(so.rot%180===0)so.x=r2(cl(tc[0]-bw/2,.02,RW-bw-.02));else so.y=r2(cl(tc[1]-bh/2,.02,RH-bh-.02))}}
+function load(k){S.items=clone(PRESETS[k]);S.preset=k;S.bed=false;if(!cur())S.sel='sofa'}
 $('presets').innerHTML=PL.map(([k,t,d])=>`<button type="button" data-p="${k}" aria-pressed="false"><b>${t}</b><span>${d}</span></button>`).join('');
-$('adds').innerHTML=Object.entries(BOX).map(([k,b])=>`<button type="button" data-t="${k}">${b[0]}</button>`).join('');
-$('adds').addEventListener('click',e=>{const t=e.target.closest('button')?.dataset.t;if(!t)return;change(()=>{S.n=(S.n||10)+1;const it=box(t,'b'+S.n,0,0);it.x=r2(cl(2.0-it.w/2,0,RW-it.w));it.y=r2(cl(3.6-it.d/2,0,RH-it.d));S.items.push(it);S.sel=it.id});buildEditor()});
+$('types').innerHTML=Object.entries(TYPES).map(([k,t])=>`<button type="button" data-s="${k}" aria-pressed="false">${t[0]}</button>`).join('');
+$('types').addEventListener('click',e=>{const t=e.target.closest('button')?.dataset.s;if(!t)return;const so=S.items.find(i=>i.kind==='sofa');change(()=>{setSofaType(so,t);S.sel='sofa'});buildEditor()});
+const ADD=[['ottoman','Ottoman bed'],['table','Coffee table'],...Object.entries(BOX).map(([k,b])=>[k,b[0]])];
+$('adds').innerHTML=ADD.map(([k,n])=>`<button type="button" data-t="${k}">${n}</button>`).join('');
+$('adds').addEventListener('click',e=>{const t=e.target.closest('button')?.dataset.t;if(!t)return;change(()=>{S.n=(S.n||10)+1;const it=t==='ottoman'?{...OTT,id:'o'+S.n,x:0,y:0,rot:0}:t==='table'?{...TABLE,id:'t'+S.n,x:0,y:0,rot:0}:box(t,'b'+S.n,0,0);it.x=r2(cl(2.0-it.w/2,0,RW-it.w));it.y=r2(cl(3.6-it.d/2,0,RH-it.d));S.items.push(it);S.sel=it.id});buildEditor()});
 $('presets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;hist.push(snapshot());load(b.dataset.p);buildEditor();render()});
-$('bed').addEventListener('change',e=>{hist.push(snapshot());S.bed=e.target.checked;render()});
+$('bed').addEventListener('change',e=>{hist.push(snapshot());S.bed=e.target.checked;for(const it of S.items)if(it.g){if(S.bed){it.e={x:it.x,y:it.y,rot:it.rot};Object.assign(it,it.g)}else{it.g={x:it.x,y:it.y,rot:it.rot};if(it.e)Object.assign(it,it.e)}}buildEditor();render()});
 $('rug').addEventListener('change',e=>{hist.push(snapshot());S.rug=e.target.checked;if(!S.rug&&S.sel==='rug'){S.sel='sofa';buildEditor()}render()});
 ed.addEventListener('focusin',e=>{if(e.target.tagName==='INPUT')before=snapshot()});
 ed.addEventListener('input',e=>{const t=e.target;if(t.tagName!=='INPUT')return;const v=parseFloat(t.value)/100;if(!(v>.02&&v<6))return;setDim(cur(),t.id,v);draw();figures();save()});
-ed.addEventListener('change',e=>{if(e.target.tagName==='INPUT'&&before){hist.push(before);before=snapshot();S.preset=null;markPresets()}});
+ed.addEventListener('change',e=>{if(e.target.id==='fBed'){const so=cur();change(()=>{so.bed=e.target.checked});return}if(e.target.tagName==='INPUT'&&before){hist.push(before);before=snapshot();S.preset=null;markPresets()}});
 ed.addEventListener('click',e=>{const id=e.target.closest('button')?.id;if(id==='bRot')rotate();if(id==='bFlip'){const it=cur();change(()=>{it.side=it.side==='L'?'R':'L'});buildEditor()}if(id==='bUndo')undo();if(id==='bDel'){change(()=>{S.items=S.items.filter(i=>i.id!==S.sel);S.sel='sofa'});buildEditor()}});
 const toM=e=>{const b=svg.getBoundingClientRect();return[(e.clientX-b.left-G.ox)/G.k,(e.clientY-b.top-G.oy)/G.k]};
 document.addEventListener('pointerdown',e=>{planFocus=fig.contains(e.target)});
@@ -289,7 +323,7 @@ svg.addEventListener('pointermove',e=>{if(!drag)return;const p=toM(e),it=drag.it
 const end=()=>{if(drag&&drag.moved){hist.push(drag.b);S.preset=null;render()}drag=null};
 svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
 addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='z'&&!e.target.closest('input')){e.preventDefault();undo();return}if(!planFocus||e.target.closest('input'))return;const it=cur();if(!it)return;const st=e.shiftKey?.1:.01,mv={ArrowLeft:[-st,0],ArrowRight:[st,0],ArrowUp:[0,-st],ArrowDown:[0,st]}[e.key];if(mv){e.preventDefault();change(()=>{it.x=r2(it.x+mv[0]);it.y=r2(it.y+mv[1])})}else if(e.key==='r'||e.key==='R')rotate()});
-function start(data){let d=data&&Array.isArray(data.items)?data:null;if(!d){try{d=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){d=null}}if(d&&Array.isArray(d.items)&&d.items.some(i=>i.kind==='sofa')&&d.items.some(i=>i.kind==='tv'))Object.assign(S,d);else load('alcove');buildEditor();render();const ro=new ResizeObserver(draw);ro.observe(fig)}
+function start(data){let d=data&&Array.isArray(data.items)?data:null;if(!d){try{d=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){d=null}}if(d&&Array.isArray(d.items)&&d.items.some(i=>i.kind==='sofa')&&d.items.some(i=>i.kind==='tv'))Object.assign(S,d);else load('ottoman');buildEditor();render();const ro=new ResizeObserver(draw);ro.observe(fig)}
 window.claude?.hot?.snapshot?.(()=>JSON.parse(snapshot()));
 window.claude?.hot?.ready?window.claude.hot.ready(start):start(window.claude?.hot?.data??{});
 }
